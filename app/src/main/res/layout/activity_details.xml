@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.mycontacts.ContactsViewModel" />
+
+        <variable
+            name="contacts"
+            type="com.example.mycontacts.ContactDetails" />
+
+        <variable
+            name="position"
+            type="int" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/design_default_color_primary_dark"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <ImageView
+                android:id="@+id/toolbar_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@{contacts.favorite ? @drawable/favorite_true : @drawable/favorite_false}"
+                android:onClick="@{(v) -> viewModel.onFavoriteClickedFromDetail(!contacts.isFavorite,position)}"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="40dp"
+        android:id="@+id/profilePic"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_margin="10dp"
+        android:text="@{contacts.name}"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phoneNumber"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:text="@{contacts.phone.mobile}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:text="@{contacts.address.street + ','+ contacts.address.city +','+ contacts.address.state +','+ contacts.address.zipCode + ','+contacts.address.country}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dob"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:text="@{contacts.birthDate}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:text="@{contacts.emailAddress}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dob"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
